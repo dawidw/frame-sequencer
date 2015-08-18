@@ -1,0 +1,5 @@
+{
+    "name": "Frame sequencer",
+    "description": "Let's you create a sequence of frames from given layer. Great in combination with 'Generate gif' plugin.",
+    "tags": ["frame", "sequence", "gif", "creator"]
+}

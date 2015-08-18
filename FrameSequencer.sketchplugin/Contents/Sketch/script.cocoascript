@@ -1,0 +1,84 @@
+var onRun = function(context) {
+  function showError(msg){
+    var app = NSApplication.sharedApplication();
+    return [app displayDialog:msg withTitle:"Yo!"];
+  }
+
+  function addLayerToCurrentPage(layer) {
+    document.currentPage().addLayers([layer])
+  }
+
+  function setPosition(object, x, y) {
+    log('position x = ' + x);
+    log('position y = ' + y);
+    object.setX(x);
+    object.setY(y);
+  }
+
+  function setupBaseArtboard() {
+    var temp_artboard = [MSArtboardGroup new];
+    var temp_frame = [temp_artboard frame];
+    [temp_frame setX:0];
+    [temp_frame setY:0];
+    [temp_frame setWidth:DRIBBBLE_CANVAS_WIDTH];
+    [temp_frame setHeight:DRIBBBLE_CANVAS_HEIGHT];
+    [temp_artboard setName: "FRAME 00"];
+    return temp_artboard;
+  }
+
+  function setupBaseLayer(layer) {
+    var temp_selection = layer;
+    var temp_selection_frame = [temp_selection frame];
+    if(temp_selection_frame.width() != DRIBBBLE_CANVAS_WIDTH) {
+      var scale = DRIBBBLE_CANVAS_WIDTH / temp_selection_frame.width();
+      var midX=temp_selection_frame.midX();
+      var midY=temp_selection_frame.midY();
+
+      temp_selection.multiplyBy(scale);
+
+      temp_selection_frame.midX = midX;
+      temp_selection_frame.midY = midY;
+    }
+    setPosition(temp_selection_frame, 0, 0);
+    return temp_selection;
+  }
+
+  function calculateStepHeight(layer) {
+    return Math.round((layer.frame().height() - DRIBBBLE_CANVAS_HEIGHT)/FRAME_COUNT)
+  }
+
+  function addNextAnimationStep(step_number) {
+    var temp_artboard = [base_artboard copy];
+    var temp_frame = [temp_artboard frame];
+    var name_count = step_number < 10 ? '0'+step_number : step_number;
+
+    [temp_artboard setName: "FRAME "+ name_count];
+    [temp_frame setX: step_number * (DRIBBBLE_CANVAS_WIDTH + PADDING)];
+
+    addLayerToCurrentPage(temp_artboard);
+    var temp_layer = temp_artboard.layers().firstObject();
+    setPosition(temp_layer.frame(), 0, -(step_number * sizeOfStep));
+  }
+
+  if (context.selection.length() == 0) showError("Please select the base layer so I have something to work on :)");
+
+  const DRIBBBLE_CANVAS_WIDTH = 800;
+  const DRIBBBLE_CANVAS_HEIGHT = 600;
+  const PADDING = 100;
+  var user_selected_layer = context.selection[0];
+  var document = context.document
+  var FRAME_COUNT = [document askForUserInput:"How many frames should the animation have?" initialValue:"0"]
+  var new_page = document.addBlankPage().setName('ANIMATION STEPS');
+
+  base_artboard = setupBaseArtboard();
+  base_layer = setupBaseLayer([user_selected_layer copy]);
+  base_artboard.addLayers([base_layer])
+  addLayerToCurrentPage(base_artboard);
+
+  var sizeOfStep = calculateStepHeight(base_layer);
+
+  for(var i=1; i<=FRAME_COUNT-1; i++) {
+    log("frame count = " + i);
+    addNextAnimationStep(i);
+  }
+};

@@ -1,0 +1,23 @@
+{
+  "name" : "FrameSequencer",
+  "version" : "1.0",
+  "description" : "",
+  "identifier" : "com.example.sketch.94fc6c23-d3fa-4aae-a8f5-de4bef0f03cb",
+  "author" : "Dawid Woźniak",
+  "authorEmail" : "dawid@plaind.pl",
+  "commands" : [
+    {
+      "script" : "script.cocoascript",
+      "handler" : "onRun",
+      "shortcut" : "",
+      "name" : "Create sequence",
+      "identifier" : "framesequencer"
+    }
+  ],
+  "menu" : {
+    "items" : [
+      "framesequencer"
+    ],
+    "title" : "FrameSequencer"
+  }
+}
