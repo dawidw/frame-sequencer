@@ -5,6 +5,7 @@
   "identifier" : "com.example.sketch.94fc6c23-d3fa-4aae-a8f5-de4bef0f03cb",
   "author" : "Dawid Woźniak",
   "authorEmail" : "dawid@plaind.pl",
+  "homepage" : "https://github.com/dawidw/frame-sequencer",
   "commands" : [
     {
       "script" : "script.cocoascript",
