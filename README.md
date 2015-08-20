@@ -13,7 +13,7 @@ Sketch plugin that helps you prepare frame sequences to combine with [Generate G
 2. Frame sequencer > Create sequence
 3. Enter how many frames you want to get
 4. Check 'ANIMATION STEPS' page.
-5. We use 'Generate GIF' name sequence to you can use it just like that to create a Gif.
+5. We use 'Generate GIF' name sequence so you can use it just like that to create a Gif.
 
 ## Perfect for dribbblers
 Frame sequencer takes selected layer and scales it to the size of Dribbble canvas (800px x 600px).
